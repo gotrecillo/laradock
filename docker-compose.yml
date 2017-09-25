@@ -199,6 +199,7 @@ services:
         - MINIO_SECRET_KEY=secretkey
       networks:
         - frontend
+        - backend
 
 ### MySQL Container #########################################
 
