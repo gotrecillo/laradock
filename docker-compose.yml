@@ -50,6 +50,8 @@ services:
         dockerfile: "Dockerfile-${PHP_VERSION}"
       volumes_from:
         - applications
+      volumes:
+        -  "~/.ssh:/home/laradock/.ssh" ### Share host credentials with workpsace to allow composer installing private repos
       extra_hosts:
         - "dockerhost:${DOCKER_HOST_IP}"
       ports:
@@ -200,6 +202,7 @@ services:
         - MINIO_SECRET_KEY=secretkey
       networks:
         - frontend
+        - backend
 
 ### MySQL Container #########################################
 
