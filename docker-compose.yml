@@ -667,6 +667,9 @@ services:
             - "8126:8126"
         volumes:
             - "/data/graphite:/opt/graphite/storage/whisper"
+        networks:
+            - frontend
+            - backend
 
     grafana:
         image: grafana/grafana
@@ -677,8 +680,9 @@ services:
             - "/data/grafana:/var/lib/grafana"
         links:
             - graphite
-        environment:
-            - GF_SECURITY_ADMIN_PASSWORD=password
+        networks:
+            - frontend
+            - backend
 
 ### Networks Setup ############################################
 
