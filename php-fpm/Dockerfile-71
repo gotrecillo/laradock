@@ -340,7 +340,9 @@ RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
 # Locales:
 #####################################
 
-RUN apt-get update && apt-get install -y \
+ARG INSTALL_LOCALES=true
+RUN if [ ${INSTALL_LOCALES} = true ]; then \
+    apt-get update && apt-get install -y \
     libpq-dev \
     libmemcached-dev \
     curl \
@@ -354,7 +356,8 @@ RUN apt-get update && apt-get install -y \
     && rm -r /var/lib/apt/lists/* \
     && sed -i 's/# es_ES.UTF-8 UTF-8/es_ES.UTF-8 UTF-8/' /etc/locale.gen \
     && sed -i 's/# es_ES ISO-8859-1/es_ES ISO-8859-1/' /etc/locale.gen \
-    && locale-gen
+    && locale-gen \
+;fi
 
 #####################################
 # wkhtmltopdf:

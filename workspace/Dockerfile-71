@@ -679,7 +679,9 @@ RUN if [ ${INSTALL_DUSK_DEPS} = true ]; then \
 # Locales:
 #####################################
 
-RUN apt-get update && apt-get install -y \
+ARG INSTALL_LOCALES=true
+RUN if [ ${INSTALL_LOCALES} = true ]; then \
+    apt-get update && apt-get install -y \
     libpq-dev \
     libmemcached-dev \
     curl \
@@ -693,7 +695,8 @@ RUN apt-get update && apt-get install -y \
     && rm -r /var/lib/apt/lists/* \
     && sed -i 's/# es_ES.UTF-8 UTF-8/es_ES.UTF-8 UTF-8/' /etc/locale.gen \
     && sed -i 's/# es_ES ISO-8859-1/es_ES ISO-8859-1/' /etc/locale.gen \
-    && locale-gen
+    && locale-gen \
+;fi
 
 #####################################
 # wkhtmltopdf:
@@ -712,6 +715,7 @@ RUN if [ ${INSTALL_WKHTMLTOPDF} = true ]; then \
     && wget https://github.com/h4cc/wkhtmltopdf-amd64/blob/master/bin/wkhtmltopdf-amd64?raw=true -O /usr/local/bin/wkhtmltopdf \
     && chmod +x /usr/local/bin/wkhtmltopdf \
 ;fi
+
 
 #
 #--------------------------------------------------------------------------
