@@ -342,6 +342,7 @@ RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
 ARG INSTALL_WKHTMLTOPDF=true
 RUN if [ ${INSTALL_WKHTMLTOPDF} = true ]; then \
     # Install all dependencies
+    apt-get update -yqq && \
     apt-get install -y \
     libxrender1 \
     libfontconfig1 \
